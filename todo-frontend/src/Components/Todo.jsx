@@ -156,24 +156,46 @@ const Todo = () => {
 
 
     return (
-        <div className='container'>
-            <div className='row p-3 bg-success text-light'>
-                <h1 className="h3 text-center">TODO Project with MERN</h1>
+        <div className='container p-4'>
+
+            <div className="row p-4 bg-dark text-light shadow-lg">
+                <h1 className="h3 text-center fw-bold">TODO Project with MERN</h1>
             </div>
 
-            <div className='row'>
-                <h3>Add Items</h3>
-                {message && <p className='text-success'>{message}</p>}
 
-                <div className='form-group d-flex gap-2'>
-                    <input className='form-control' type="text" value={title} placeholder='Title' onChange={(e) => setTitle(e.target.value)} />
-                    <input className='form-control' type="text" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)} />
-                    <button className='btn btn-dark' onClick={handleSubmit}>Submit</button>
+            <div className="row p-4 bg-light shadow rounded">
+                <h3 className="text-primary fw-bold">Add Items</h3>
+
+                {message && <p className="text-success fw-semibold">{message}</p>}
+
+                <div className="form-group d-flex gap-3 align-items-center">
+                    <input
+                        className="form-control border-primary shadow-sm"
+                        type="text"
+                        value={title}
+                        placeholder="Title"
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <input
+                        className="form-control border-primary shadow-sm"
+                        type="text"
+                        value={description}
+                        placeholder="Description"
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={handleSubmit}>
+                        Submit
+                    </button>
                 </div>
 
-                {error && <p className='text-danger'>{error}</p>}
-
+                {error && <p className="text-danger fw-semibold mt-2">{error}</p>}
             </div>
+
+
+
+
+
+
 
             <div className='row mt-3'>
                 <h3>Taks</h3>
