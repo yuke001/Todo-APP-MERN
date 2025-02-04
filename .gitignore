@@ -1,7 +1,8 @@
 todo-backend/node_modules
 todo-backend/package-lock.json
-# todo-backend/.env
+todo-backend/.env
 
 todo-frontend/node_modules
 todo-frontend/package-lock.json
+todo-frontend/.env
 
