@@ -13,7 +13,7 @@ const Todo = () => {
     const [editTitle, setEditTitle] = useState("");
     const [editDescription, setEditDescription] = useState("");
 
-    const APIURL = "http://localhost:5000/api";
+    const APIURL = import.meta.env.VITE_API_URL;
 
     const handleSubmit = () => {
         setError("");

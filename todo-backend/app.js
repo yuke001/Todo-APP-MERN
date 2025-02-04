@@ -1,7 +1,7 @@
-import express from 'express';
-import connectDB from './config/db.js';
-import todoRouter from './routes/todoRoutes.js';
-import cors from 'cors';
+import express from "express";
+import connectDB from "./config/db.js";
+import todoRouter from "./routes/todoRoutes.js";
+import cors from "cors";
 
 let app = express();
 
