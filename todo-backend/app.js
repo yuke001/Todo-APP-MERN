@@ -9,7 +9,7 @@ dotenv.config();
 // Configure CORS based on environment
 const isProduction = process.env.NODE_ENV === "production";
 const allowedOrigins = isProduction
-  ? [process.env.FRONTEND_URL]
+  ? [process.env.APPLICATION_URL]
   : ["http://localhost:5173"]; // Replace with your Vercel URL
 
 const corsOptions = {
