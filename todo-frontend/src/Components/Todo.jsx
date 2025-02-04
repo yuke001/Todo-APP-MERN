@@ -78,7 +78,7 @@ const Todo = () => {
     const handleUpdate = () => {
         setError("");
         console.log("Button Clicked handle update");
-    
+
         if (editTitle.trim() !== '' && editDescription.trim() !== '') {
             fetch(APIURL + "/todos/" + editId, {
                 method: "PUT",
@@ -87,44 +87,70 @@ const Todo = () => {
                 },
                 body: JSON.stringify({ title: editTitle, description: editDescription })
             })
-            .then((res) => {
+                .then((res) => {
+                    if (res.ok) {
+                        res.json().then((data) => {
+                            // Update the todos state correctly
+                            const updatedTodos = todos.map((item) =>
+                                item._id === editId ? { ...item, title: editTitle, description: editDescription } : item
+                            );
+
+                            setTodos(updatedTodos);
+                            setMessage("Todo item updated successfully");
+
+                            // Clear edit state
+                            setEditId(-1);
+                            setEditTitle("");
+                            setEditDescription("");
+
+                            setTimeout(() => {
+                                setMessage("");
+                            }, 3000);
+                        });
+                    } else {
+                        setError("Unable to update Todo item");
+                    }
+                })
+                .catch(() => {
+                    setError("Error occurred while updating Todo item");
+                });
+        } else {
+            setError("Title and description cannot be empty");
+        }
+    };
+
+
+    //handleEditCancel
+
+    const handleEditCancel = () => {
+        setEditId(-1);
+    }
+
+    // delete function 
+
+    const handleDelete = (_id) => {
+        if (window.confirm('Are you sure to delete this item?')) {
+            fetch(APIURL + "/todos/" + _id, {
+                method: "DELETE"
+            }).then((res) => {
                 if (res.ok) {
-                    res.json().then((data) => {
-                        // Update the todos state correctly
-                        const updatedTodos = todos.map((item) =>
-                            item._id === editId ? { ...item, title: editTitle, description: editDescription } : item
-                        );
-    
-                        setTodos(updatedTodos);
-                        setMessage("Todo item updated successfully");
-                        
-                        // Clear edit state
-                        setEditId(-1);
-                        setEditTitle("");
-                        setEditDescription("");
-    
+                    res.json().then(() => {
+                        setTodos(todos.filter((item) => item._id !== _id));
+                        setMessage("Todo item deleted successfully");
                         setTimeout(() => {
                             setMessage("");
                         }, 3000);
                     });
                 } else {
-                    setError("Unable to update Todo item");
+                    setError("Unable to delete Todo item");
                 }
-            })
-            .catch(() => {
-                setError("Error occurred while updating Todo item");
+            }).catch(() => {
+                setError("Error occurred while deleting Todo item");
+                console.log("Error occurred while deleting Todo item");
             });
-        } else {
-            setError("Title and description cannot be empty");
         }
-    };
-    
-
-    //handleEditCancel
-
-    const handleEditCancel =()=>{
-        setEditId(-1);
     }
+
 
 
 
@@ -176,8 +202,8 @@ const Todo = () => {
 
                                     {editId == -1 || editId !== item._id ? <button className='btn btn-warning' onClick={() => handleEdit(item)}>Edit</button> : <button onClick={handleUpdate}>Update</button>}
 
-                                   {editId == -1  ? <button className='btn btn-danger'>Delete</button> :
-                                    <button className='btn btn-danger' onClick={handleEditCancel}>Cancel</button> }
+                                    {editId == -1 ? <button className='btn btn-danger' onClick={() => handleDelete(item._id)}>Delete</button> :
+                                        <button className='btn btn-danger' onClick={handleEditCancel}>Cancel</button>}
                                 </div>
                             </li>
                         )
