@@ -49,3 +49,38 @@ export const getTodos = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
       }
       };
+
+      // update a todo  by id
+
+      export const putTodo = async (req, res) => {
+        const { id } = req.params;
+        const { title, description } = req.body;
+
+        try {
+           let updatedTodo =  await Todo.findByIdAndUpdate(
+                id,
+                {title, description},
+                {new: true}
+            )
+            res.status(201).send("updated successfully")
+        } catch (error) {
+            console.log(error);
+            
+        }
+      
+      }
+
+      // delete a todo by id
+
+      export const deleteTodo = async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            await Todo.findByIdAndDelete(id);
+            res.status(200).json({ message: "Todo deleted successfully" });
+        } catch (error) {
+            console.log(error);
+            
+        }
+
+      }

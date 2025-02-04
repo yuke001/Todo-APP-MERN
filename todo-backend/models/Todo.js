@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 let todoSchema = new mongoose.Schema(
   {
-  
     title: {
       type: String,
       required: true,
@@ -13,9 +12,8 @@ let todoSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
+);
 
-  )
-
-  let Todo = mongoose.model("todo", todoSchema);
+let Todo = mongoose.model("todo", todoSchema);
 
 export default Todo;
