@@ -62,7 +62,8 @@ export const getTodos = async (req, res) => {
                 {title, description},
                 {new: true}
             )
-            res.status(201).send("updated successfully")
+            res.status(201).json({ message: "updated successfully" });  
+
         } catch (error) {
             console.log(error);
             
